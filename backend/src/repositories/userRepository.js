@@ -8,9 +8,8 @@ class UserRepository extends CrudRepository {
 
   async getUserByEmail(email) {
     try {
-      const res = await User.findOne({
-        email: email,
-      });
+      const res = await User.findOne({ email });
+      return res;
     } catch (error) {
       console.log("Something went wrong in repository layer");
       throw error;
@@ -19,9 +18,7 @@ class UserRepository extends CrudRepository {
 
   async getUserByUsername(username) {
     try {
-      const res = await User.findOne({
-        username: username,
-      });
+      const res = await User.findOne({ username }).select("-password");
     } catch (error) {
       console.log("Something went wrong in repository layer");
       throw error;
