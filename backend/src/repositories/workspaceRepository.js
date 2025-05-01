@@ -57,7 +57,7 @@ class WorkspaceRepository extends CrudRepository {
           statusCode: StatusCodes.FORBIDDEN,
         });
 
-      workspace.member.push({
+      workspace.members.push({
         memberId,
         role,
       });
