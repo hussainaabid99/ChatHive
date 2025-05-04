@@ -54,6 +54,26 @@ class CrudRepository {
       throw error;
     }
   }
+
+  async findOne(data) {
+    try {
+      const result = await this.model.findOne(data);
+      return result;
+    } catch (error) {
+      console.log("Something went wrong in repository layer");
+      throw error;
+    }
+  }
+
+  async deleteMany(data) {
+    try {
+      const result = await this.model.deleteMany(data);
+      return result;
+    } catch (error) {
+      console.log("Something went wrong in repository layer");
+      throw error;
+    }
+  }
 }
 
 export default CrudRepository;

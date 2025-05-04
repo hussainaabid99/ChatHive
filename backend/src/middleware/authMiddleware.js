@@ -2,7 +2,9 @@ import { StatusCodes } from "http-status-codes";
 import { CustomErrorResponse } from "../common/responseObject.js";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/serverConfig.js";
-import userRepsitory from "../repositories/userRepository.js";
+import UserRepsitory from "../repositories/userRepository.js";
+
+const userRepository = new UserRepsitory();
 
 const isAuthenticated = async (req, res, next) => {
   try {
@@ -24,7 +26,7 @@ const isAuthenticated = async (req, res, next) => {
         })
       );
 
-    const user = await userRepsitory.getById(response.id);
+    const user = await userRepository.getById(response.id);
     req.user = user.id;
 
     next();
@@ -46,3 +48,5 @@ const isAuthenticated = async (req, res, next) => {
       .json(internalErrorResponse(error));
   }
 };
+
+export default isAuthenticated;

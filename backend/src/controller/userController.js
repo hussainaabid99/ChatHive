@@ -11,7 +11,6 @@ const userService = new UserService();
 export const SignUp = async (req, res) => {
   try {
     const user = await userService.SignUp(req.body);
-
     return res
       .status(StatusCodes.CREATED)
       .json(SuccessResponse(user, "User created successfully"));

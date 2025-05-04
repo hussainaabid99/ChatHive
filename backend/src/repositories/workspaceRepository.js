@@ -1,12 +1,23 @@
 import Workspace from "../schema/workspace.js";
 import CrudRepository from "../repositories/crudRepository.js";
-import User from "../schema/user.js";
-import ClientError from "../utils/errors/clientError.js";
 import Channel from "../schema/channel.js";
 
 class WorkspaceRepository extends CrudRepository {
   constructor() {
     super(Workspace);
+  }
+
+  async getWorkspaceDetailsById(workspaceId) {
+    try {
+      const workspace = await Workspace.findById(workspaceId)
+        .populate("members.memberId", "username email avatar")
+        .populate("channels");
+
+      return workspace;
+    } catch (error) {
+      console.log("Something went wrong in repository layer", error);
+      throw error;
+    }
   }
 
   async getWorkspaceByName(name) {
@@ -21,7 +32,9 @@ class WorkspaceRepository extends CrudRepository {
 
   async getWorkspaceByJoinCode(joinCode) {
     try {
-      const workspace = await Workspace.findOne({ joinCode });
+      const workspace = await Workspace.findOne({ joinCode })
+        .populate("members")
+        .populate("channels");
       return workspace;
     } catch (error) {
       console.log("Something went wrong in repository layer", error);
@@ -31,31 +44,7 @@ class WorkspaceRepository extends CrudRepository {
 
   async addMemberToWorkspace(workspaceId, memberId, role) {
     try {
-      const isUser = await User.findById({ memberId });
-      if (!isUser)
-        throw new ClientError({
-          explanation: "Invalid data sent from the client",
-          message: "User not found",
-          statusCode: StatusCodes.NOT_FOUND,
-        });
-
-      const workspace = await Workspace.findById({ workspaceId });
-      if (!workspace)
-        throw new ClientError({
-          explanation: "Invalid data sent from the client",
-          message: "Workspace not found",
-          statusCode: StatusCodes.NOT_FOUND,
-        });
-
-      const isMemberAlreadyPartOfWorkspace = await Workspace.findOne({
-        "members.memberId": memberId,
-      });
-      if (isMemberAlreadyPartOfWorkspace)
-        throw new ClientError({
-          explanation: "Invalid data sent from the client",
-          message: "User already part of workspace",
-          statusCode: StatusCodes.FORBIDDEN,
-        });
+      const workspace = await Workspace.findById(workspaceId);
 
       workspace.members.push({
         memberId,
@@ -70,36 +59,16 @@ class WorkspaceRepository extends CrudRepository {
     }
   }
 
-  async addChannelToWorkspace(workspaceId, channelName) {
+  async addChannelToWorkspace(workspace, channelName) {
     try {
-      const workspace = await Workspace.findById(workspaceId).populate(
-        "channels"
-      );
-      if (!workspace)
-        throw new ClientError({
-          explanation: "Invalid data sent from the client",
-          message: "Workspace not found",
-          statusCode: StatusCodes.NOT_FOUND,
-        });
-
-      const isChannelAlreadyPartOfWorkspace = await Workspace.findOne({
-        "channels.name": channelName,
-      });
-      if (isChannelAlreadyPartOfWorkspace)
-        throw new ClientError({
-          explanation: "Invalid data sent from the client",
-          message: "Channel already part of workspace",
-          statusCode: StatusCodes.FORBIDDEN,
-        });
-
       const channel = await Channel.create({
         name: channelName,
-        workspaceId: workspaceId,
+        workspaceId: workspace._id,
       });
 
+      console.log(channel);
       workspace.channels.push(channel);
       await workspace.save();
-
       return workspace;
     } catch (error) {
       console.log("Something went wrong in repository layer", error);
