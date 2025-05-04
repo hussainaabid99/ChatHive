@@ -10,11 +10,11 @@ class WorkspaceService {
     this.workspaceRepository = new WorkspaceRepository();
   }
 
-  #_isChannelInWorkspace(workspace, channelName) {
+  _isChannelInWorkspace(workspace, channelName) {
     console.log(workspace, channelName);
     return workspace.channels.some((channel) => console.log(channel?.name));
   }
-  #_isAdmin(workspace, userId) {
+  _isAdmin(workspace, userId) {
     return workspace.members.some(
       (member) =>
         member.memberId._id.toString() === userId &&
@@ -22,7 +22,7 @@ class WorkspaceService {
     );
   }
 
-  #_isMember(workspace, userId) {
+  _isMember(workspace, userId) {
     return workspace.members.some(
       (member) => member.memberId._id.toString() === userId
     );
@@ -40,7 +40,7 @@ class WorkspaceService {
           statusCode: StatusCodes.NOT_FOUND,
         });
 
-      const isMember = this.#_isMember(workspace, userId);
+      const isMember = this._isMember(workspace, userId);
 
       if (!isMember)
         throw new ClientError({
@@ -103,7 +103,7 @@ class WorkspaceService {
           statusCode: StatusCodes.NOT_FOUND,
         });
 
-      const isAdmin = this.#_isAdmin(workspace, userId);
+      const isAdmin = this._isAdmin(workspace, userId);
 
       if (!isAdmin)
         throw new ClientError({
@@ -141,7 +141,7 @@ class WorkspaceService {
           message: "Workspace not found",
           statusCode: StatusCodes.NOT_FOUND,
         });
-      const isMember = this.#_isMember(workspace, userId);
+      const isMember = this._isMember(workspace, userId);
       if (!isMember)
         throw new ClientError({
           explanation: "Invalid data sent from the client",
@@ -222,7 +222,7 @@ class WorkspaceService {
           statusCode: StatusCodes.NOT_FOUND,
         });
 
-      const isAdmin = this.#_isAdmin(workspace, userId);
+      const isAdmin = this._isAdmin(workspace, userId);
       if (!isAdmin)
         throw new ClientError({
           explanation:
@@ -249,7 +249,7 @@ class WorkspaceService {
           statusCode: StatusCodes.NOT_FOUND,
         });
 
-      const isAdmin = this.#_isAdmin(workspace, userId);
+      const isAdmin = this._isAdmin(workspace, userId);
       if (!isAdmin)
         throw ClientError({
           explanation:
@@ -258,7 +258,7 @@ class WorkspaceService {
           statusCode: StatusCodes.UNAUTHORIZED,
         });
 
-      const hasChannel = this.#_isChannelInWorkspace(workspace, channelName);
+      const hasChannel = this._isChannelInWorkspace(workspace, channelName);
       if (hasChannel)
         throw ClientError({
           explanation: "The channel is already associated with the workspace",
