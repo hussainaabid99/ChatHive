@@ -4,6 +4,8 @@ import ClientError from "../utils/errors/clientError.js";
 import ChannelRepository from "../repositories/channelRepository.js";
 import { StatusCodes } from "http-status-codes";
 import UserRepository from "../repositories/userRepository.js";
+import { addEmailtoMailQueue } from "../producers/mailQueueProducer.js";
+import { workspaceJoinMail } from "../common/mailObject.js";
 
 class WorkspaceService {
   constructor() {
@@ -204,7 +206,10 @@ class WorkspaceService {
         memberId,
         role
       );
-
+      addEmailtoMailQueue({
+        ...workspaceJoinMail(workspace),
+        to: isValidUser.email,
+      });
       return response;
     } catch (error) {
       console.log("Something went wrong in service layer", error);
