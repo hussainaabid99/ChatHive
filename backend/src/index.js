@@ -5,6 +5,8 @@ import apiRoutes from "./routes/apiRoutes.js";
 import bullServerAdapter from "./config/bullBoardConfig.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import messageHandlers from "./controller/messageSocketController.js";
+import messageSocketHandlers from "./controller/channelSocketController.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -18,13 +20,8 @@ app.use("/ui", bullServerAdapter.getRouter());
 app.use("/api", apiRoutes);
 
 io.on("connection", (socket) => {
-  console.log("connected to socket:", socket.id);
-  setTimeout(() => {
-    socket.emit("new message", "Hello from the server");
-  }, 2000);
-  socket.on("listen", (msg) => {
-    console.log(msg);
-  });
+  messageHandlers(io, socket);
+  messageSocketHandlers(io, socket);
 });
 
 httpServer.listen(PORT, () => {

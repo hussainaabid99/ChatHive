@@ -41,6 +41,11 @@ class MessageService {
       throw error;
     }
   }
+
+  async createMessage(message) {
+    const newMesssage = await this.messageRepository.create(message);
+    return newMesssage;
+  }
 }
 
 export default MessageService;
