@@ -3,6 +3,7 @@ import "./App.css";
 import { Auth } from "@/pages/auth/Auth";
 import { SignupCard } from "@/components/organisms/auth/SignupCard";
 import { SigninCard } from "@/components/organisms/auth/SigninCard";
+import { NotFound } from "./pages/notFound/NotFound";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           </Auth>
         }
       />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 }
