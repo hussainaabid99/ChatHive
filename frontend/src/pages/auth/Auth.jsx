@@ -1,0 +1,11 @@
+import { SignupCard } from "@/components/organisms/auth/SignupCard";
+
+export const Auth = () => {
+  return (
+    <div className="h-[100vh] flex items-center justify-center bg-theme">
+      <div className="md:h-auto md:w-[420px]">
+        <SignupCard />
+      </div>
+    </div>
+  );
+};
