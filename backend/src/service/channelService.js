@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import ChannelRepository from "../repositories/channelRepository.js";
 import ClientError from "../utils/errors/clientError.js";
 import WorkspaceService from "../service/workspaceService.js";
+import MessageRepository from "../repositories/messageRepository.js";
 
 class ChannelService {
   constructor() {
@@ -20,12 +21,31 @@ class ChannelService {
         });
 
       this.wokspaceService = new WorkspaceService();
-      const workspace = this.wokspaceService.getWorkspaceById(
+      const workspace = await this.wokspaceService.getWorkspaceById(
         channel.workspaceId,
         userId
       );
 
-      if (workspace) return channel;
+      const messageRepository = new MessageRepository();
+      const messages = await messageRepository.getPaginatedMessage(
+        {
+          channelId,
+        },
+        1,
+        20
+      );
+
+      channel.messages = messages;
+
+      if (workspace)
+        return {
+          messages,
+          _id: channel._id,
+          name: channel.name,
+          createdAt: channel.createdAt,
+          updatedAt: channel.updatedAt,
+          workspaceId: channel.workspaceId,
+        };
     } catch (error) {
       console.log("Something went wrong in repository layer");
       throw error;

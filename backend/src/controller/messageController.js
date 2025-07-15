@@ -10,7 +10,7 @@ const messageService = new MessageService();
 
 export const getMessageController = async (req, res) => {
   try {
-    const messages = await messageService.getPaginatedMessage(
+    const messages = await messageService.getMessageService(
       {
         channelId: req.params.channelId,
       },

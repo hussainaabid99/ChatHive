@@ -10,7 +10,7 @@ class MessageService {
     this.memberService = new MemberService();
   }
 
-  async getPaginatedMessage(messageParams, page, limit, user) {
+  async getMessageService(messageParams, page, limit, user) {
     try {
       const channelDetails =
         await this.channelRepository.getChannelWithWorkspaceDetails(
