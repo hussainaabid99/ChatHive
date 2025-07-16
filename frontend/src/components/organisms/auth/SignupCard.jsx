@@ -8,27 +8,48 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { LucideLoader2, TriangleAlert } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export const SignupCard = () => {
-  const [signupForm, setSignupForm] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    username: "",
-  });
-
+export const SignupCard = ({
+  signupForm,
+  setSignupForm,
+  onSignupFormSubmit,
+  validationError,
+  isPending,
+  isSuccess,
+  error,
+}) => {
   const navigate = useNavigate();
 
   return (
     <Card className="w-full h-full">
       <CardHeader>
-        <CardTitle>Sign Up</CardTitle>
+        <CardTitle className="text-lg ">Sign Up</CardTitle>
         <CardDescription>Signup to access your account</CardDescription>
+        {validationError && (
+          <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-destructive mb-6 text-sm">
+            <TriangleAlert className="size-5" />
+            <p>{validationError.message}</p>
+          </div>
+        )}
+        {error && (
+          <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-destructive mb-6 text-sm">
+            <TriangleAlert className="size-5" />
+            <p>{error.message}</p>
+          </div>
+        )}
+        {isSuccess && (
+          <div className="bg-yellow-50 border border-yellow-300 p-2 rounded-lg flex items-center gap-3 text-xs text-yellow-600 shadow-sm mb-5">
+            <p className="font-medium">
+              Successfully signed up. You will be redirected to the login page.
+            </p>
+            <LucideLoader2 className="animate-spin text-yellow-600 size-5" />
+          </div>
+        )}
       </CardHeader>
       <CardContent>
-        <form className="space-y-3">
+        <form className="space-y-3" onSubmit={onSignupFormSubmit}>
           <Input
             placeholder="Email"
             required
@@ -37,7 +58,7 @@ export const SignupCard = () => {
             }
             value={signupForm.email}
             type="email"
-            disabled={false}
+            disabled={isPending}
           />
           <Input
             placeholder="Password"
@@ -47,7 +68,7 @@ export const SignupCard = () => {
             }
             value={signupForm.password}
             type="password"
-            disabled={false}
+            disabled={isPending}
           />
           <Input
             placeholder="Confirm Password"
@@ -60,7 +81,7 @@ export const SignupCard = () => {
             }
             value={signupForm.confirmPassword}
             type="password"
-            disabled={false}
+            disabled={isPending}
           />
           <Input
             placeholder="Username"
@@ -73,9 +94,14 @@ export const SignupCard = () => {
             }
             value={signupForm.username}
             type="text"
-            disabled={false}
+            disabled={isPending}
           />
-          <Button disabled={false} size="lg" type="Submit" className="w-full">
+          <Button
+            disabled={isPending}
+            size="lg"
+            type="Submit"
+            className="w-full"
+          >
             Continue
           </Button>
         </form>
