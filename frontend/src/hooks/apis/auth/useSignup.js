@@ -1,8 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { SignUpRequest } from "@/apis/auth";
+import { useToast } from "@/hooks/use-toast";
 
 export const useSignup = () => {
+  const { toast } = useToast();
+
   const {
     isPending,
     isSuccess,
@@ -12,9 +15,20 @@ export const useSignup = () => {
     mutationFn: SignUpRequest,
     onSuccess: (data) => {
       console.log("Successfully signed up", data);
+      toast({
+        title: "Successfully signed up",
+        message: "You will be redirected to the login page in a few seconds",
+        type: "success",
+      });
     },
     onError: (error) => {
       console.error("Failed to signup", error);
+      toast({
+        title: "Failed to signup",
+        message: "error.message",
+        type: "error",
+        variant: "destructive",
+      });
     },
   });
 
