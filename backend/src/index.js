@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { PORT } from "./config/serverConfig.js";
 import dbConnect from "./config/dbConfig.js";
 import apiRoutes from "./routes/apiRoutes.js";
@@ -11,6 +12,8 @@ import messageSocketHandlers from "./controller/channelSocketController.js";
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {});
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
