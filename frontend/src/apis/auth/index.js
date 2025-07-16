@@ -16,7 +16,8 @@ export const SignUpRequest = async ({ email, password, username }) => {
 
 export const SignInRequest = async ({ email, password }) => {
   try {
-    const response = await axios.get("/users/signin", {
+    console.log("siginereq", { email, password });
+    const response = await axios.post("/users/signin", {
       email,
       password,
     });
