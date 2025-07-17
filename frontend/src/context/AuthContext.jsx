@@ -1,3 +1,4 @@
+import { FunctionSquare } from "lucide-react";
 import { Children, createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
@@ -8,6 +9,17 @@ export const AuthContextProvider = ({ children }) => {
     token: null,
     isLoading: true,
   });
+
+  function logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
+    setAuth({
+      user: null,
+      token: null,
+      isLoading: false,
+    });
+  }
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -29,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,10 +6,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/context/useAuth";
-import { LogOutIcon, Settings, Settings2Icon } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { LogOutIcon, Settings } from "lucide-react";
 
 export const UserButton = () => {
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
+
+  const { toast } = useToast();
+
+  async function handleLogout() {
+    await logout();
+    toast({
+      title: "Successfully signed out",
+      type: "success",
+    });
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none relative">
@@ -25,7 +37,7 @@ export const UserButton = () => {
           <Settings className="mr-2 size-4 h-10" />
           Settings
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
           <LogOutIcon className="mr-2 size-4 h-10" />
           Logout
         </DropdownMenuItem>

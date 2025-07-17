@@ -28,7 +28,6 @@ export const useSignin = () => {
 
       toast({
         title: "Successfully signed in",
-        message: "You will be redirected to homepage in a few seconds",
         type: "success",
       });
     },
@@ -36,7 +35,6 @@ export const useSignin = () => {
       console.error("Failed to sign in", error);
       toast({
         title: "Failed to sign in",
-        message: error.message,
         type: "error",
         variant: "destructive",
       });

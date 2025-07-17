@@ -17,7 +17,6 @@ export const useSignup = () => {
       console.log("Successfully signed up", data);
       toast({
         title: "Successfully signed up",
-        message: "You will be redirected to the login page in a few seconds",
         type: "success",
       });
     },
@@ -25,7 +24,6 @@ export const useSignup = () => {
       console.error("Failed to signup", error);
       toast({
         title: "Failed to signup",
-        message: "error.message",
         type: "error",
         variant: "destructive",
       });
