@@ -6,6 +6,17 @@ class UserRepository extends CrudRepository {
     super(User);
   }
 
+  async signUpUser(data) {
+    try {
+      const newUser = new User(data);
+      await newUser.save();
+      return newUser;
+    } catch (error) {
+      console.log("Something went wrong in repository layer");
+      throw error;
+    }
+  }
+
   async getUserByEmail(email) {
     try {
       const res = await User.findOne({ email });
@@ -19,6 +30,7 @@ class UserRepository extends CrudRepository {
   async getUserByUsername(username) {
     try {
       const res = await User.findOne({ username }).select("-password");
+      return res;
     } catch (error) {
       console.log("Something went wrong in repository layer");
       throw error;

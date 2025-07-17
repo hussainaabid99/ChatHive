@@ -65,8 +65,8 @@ class WorkspaceRepository extends CrudRepository {
         name: channelName,
         workspaceId: workspace._id,
       });
-
-      console.log(channel);
+      console.log("workspace", workspace);
+      console.log("channel", channel);
       workspace.channels.push(channel);
       await workspace.save();
       return workspace;

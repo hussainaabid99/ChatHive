@@ -6,9 +6,7 @@ class CrudRepository {
   async create(data) {
     try {
       const result = await this.model.create(data);
-      const resultObj = result.toObject(); // or use .lean() if needed in other contexts
-      delete resultObj.password;
-      return resultObj;
+      return result;
     } catch (error) {
       console.log("Something went wrong in repository layer");
       throw error;

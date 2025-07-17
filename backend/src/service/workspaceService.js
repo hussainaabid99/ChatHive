@@ -62,7 +62,7 @@ class WorkspaceService {
       const joinCode = uuidv4().substring(0, 8).toUpperCase();
       const response = await this.workspaceRepository.create({
         name: data.name,
-        description: data.description,
+        description: data?.description,
         joinCode,
       });
 
@@ -72,12 +72,13 @@ class WorkspaceService {
         "admin"
       );
 
-      const workspace = await this.workspaceRepository.addChannelToWorkspace(
-        response._id,
-        "general"
-      );
+      const updatedWorkspace =
+        await this.workspaceRepository.addChannelToWorkspace(
+          response,
+          "general"
+        );
 
-      return workspace;
+      return updatedWorkspace;
     } catch (error) {
       console.log("Something went wrong in service layer", error);
       throw error;
