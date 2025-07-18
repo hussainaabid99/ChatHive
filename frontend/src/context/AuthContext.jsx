@@ -1,5 +1,4 @@
-import { FunctionSquare } from "lucide-react";
-import { Children, createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 

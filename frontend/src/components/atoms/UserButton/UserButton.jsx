@@ -6,11 +6,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/context/useAuth";
+import { useCreateWorkspaceModal } from "@/hooks/context/useCreateWorkspaceModal";
 import { useToast } from "@/hooks/use-toast";
-import { LogOutIcon, Settings } from "lucide-react";
+import { LogOutIcon, PlusCircle, Settings } from "lucide-react";
 
 export const UserButton = () => {
   const { auth, logout } = useAuth();
+  const { setOpenCreateWorkspaceModal } = useCreateWorkspaceModal();
 
   const { toast } = useToast();
 
@@ -20,6 +22,10 @@ export const UserButton = () => {
       title: "Successfully signed out",
       type: "success",
     });
+  }
+
+  function openWorkspaceCreateModal() {
+    setOpenCreateWorkspaceModal(true);
   }
 
   return (
@@ -33,6 +39,10 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <DropdownMenuItem onClick={openWorkspaceCreateModal}>
+          <PlusCircle className="mr-2 size-4 h-10" />
+          Create Workspace
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <Settings className="mr-2 size-4 h-10" />
           Settings
