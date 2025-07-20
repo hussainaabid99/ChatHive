@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Loader2 } from "lucide-react";
@@ -32,6 +33,7 @@ export const WorkspaceSwitcher = () => {
           {workspace?.name}
           <span className="text-xs text-muted-foreground">(Active Tab)</span>
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
         {isFetchingWorkspaces ? (
           <Loader2 className="size-5 animate-spin" />
         ) : (

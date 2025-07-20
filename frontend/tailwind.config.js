@@ -16,6 +16,7 @@ export default {
           DEFAULT: "#5c3B58",
           dark: "#481349",
           indigo: "#6B4C9A",
+          medium: "#5E2C51",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
