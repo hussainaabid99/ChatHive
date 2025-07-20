@@ -15,6 +15,7 @@ export default {
         theme: {
           DEFAULT: "#5c3B58",
           dark: "#481349",
+          indigo: "#6B4C9A",
         },
         card: {
           DEFAULT: "hsl(var(--card))",

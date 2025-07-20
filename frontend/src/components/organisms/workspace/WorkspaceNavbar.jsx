@@ -1,13 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { useGetWorkspaceById } from "@/hooks/apis/workspaces/useGetWorkspaceById";
-import { InfoIcon, SearchIcon } from "lucide-react";
+import { InfoIcon, Loader2, SearchIcon } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 export const WorkspaceNavbar = () => {
   const { workspaceId } = useParams();
-  console.log(workspaceId, typeof workspaceId);
   const { isFetching, workspace } = useGetWorkspaceById(workspaceId);
-  console.log(workspace);
+
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center p-1.5 bg-theme-dark h-10">
+        <Loader2 className="animate-spin text-theme-indigo" />
+      </div>
+    );
+  }
   return (
     <nav className="flex items-center justify-center p-1.5 bg-theme-dark h-10">
       <div className="flex-1"></div>
@@ -18,7 +24,7 @@ export const WorkspaceNavbar = () => {
         >
           <SearchIcon className="size-5 text-white mr-2" />
           <span className="text-white text-xs">
-            Search {workspace?.data?.name || "Workspace"}
+            Search {workspace?.name || "Workspace"}
           </span>
         </Button>
       </div>
