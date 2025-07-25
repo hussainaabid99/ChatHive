@@ -48,3 +48,18 @@ export const fetchWorkspaceDetailRequest = async ({ workspaceId, token }) => {
     throw error.response.data;
   }
 };
+
+export const deleteWorkspaceRequest = async ({ workspaceId, token }) => {
+  try {
+    const response = await axios.delete(`/workspace/${workspaceId}`, {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+
+    return response?.data?.data;
+  } catch (error) {
+    console.error(error);
+    throw error.response.data;
+  }
+};
