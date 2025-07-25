@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-const CreateWorkspaceContext = createContext();
+export const CreateWorkspaceContext = createContext();
 
 export const CreateWorkspaceContextProvider = ({ children }) => {
   const [openCreateWorkspaceModal, setOpenCreateWorkspaceModal] =
