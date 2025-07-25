@@ -9,6 +9,7 @@ import {
   addMemberToWorkspaceController,
   updateWorkspaceController,
   addChannelToWorkspaceController,
+  resetWorkspaceJoinCodeController,
 } from "../../controller/workspaceController.js";
 
 const router = express.Router();
@@ -30,11 +31,15 @@ router.put(
   isAuthenticated,
   addMemberToWorkspaceController
 );
-
 router.put(
   "/:workspaceId/channels",
   isAuthenticated,
   addChannelToWorkspaceController
+);
+router.put(
+  "/:workspaceId/joinCode/reset",
+  isAuthenticated,
+  resetWorkspaceJoinCodeController
 );
 router.put("/:workspaceId", isAuthenticated, updateWorkspaceController);
 

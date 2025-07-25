@@ -54,7 +54,7 @@ export const getWorkspaceByIdController = async (req, res) => {
       req.params.workspaceId,
       req.user
     );
-    console.log("workspace at ctrl", workspace);
+    console.log("req at ctrl", req);
     return res
       .status(StatusCodes.OK)
       .json(SuccessResponse(workspace, "Workspace fetched successfully"));
@@ -177,6 +177,29 @@ export const addChannelToWorkspaceController = async (req, res) => {
       .status(StatusCodes.OK)
       .json(
         SuccessResponse(response, "Channel successfully added to workspace")
+      );
+  } catch (error) {
+    console.log("Something went wrong in controller layer", error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(CustomErrorResponse(error));
+    }
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(InternalServerErrorResponse(error));
+  }
+};
+
+export const resetWorkspaceJoinCodeController = async (req, res) => {
+  try {
+    const response = await workspaceService.resetWorkspaceJoinCode(
+      req.params.workspaceId,
+      req.user
+    );
+    return res
+      .status(StatusCodes.OK)
+      .json(
+        SuccessResponse(response, "Workspace join code reset successfully")
       );
   } catch (error) {
     console.log("Something went wrong in controller layer", error);

@@ -282,6 +282,27 @@ class WorkspaceService {
       throw error;
     }
   }
+
+  async resetWorkspaceJoinCode(workspaceId) {
+    try {
+      const workspace = await this.workspaceRepository.getById(workspaceId);
+      if (!workspace)
+        throw new ClientError({
+          explanation: "Invalid data sent from the client",
+          message: "Workspace not found",
+          statusCode: StatusCodes.NOT_FOUND,
+        });
+
+      const newJoinCode = uuidv4().substring(0, 8).toUpperCase();
+      const response = await this.workspaceRepository.update(workspaceId, {
+        joinCode: newJoinCode,
+      });
+      return response;
+    } catch (error) {
+      console.log("Something went wrong in service layer", error);
+      throw error;
+    }
+  }
 }
 
 export default WorkspaceService;
