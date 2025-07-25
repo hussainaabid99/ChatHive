@@ -1,11 +1,21 @@
+import { SidebarItem } from "@/components/atoms/SidebarItem/SidebarItem";
 import { WorkspacePanelHeader } from "@/components/molecules/workspace/WorkspacePanelHeader";
+import { WorkspacePanelSection } from "@/components/molecules/workspace/WorkspacePanelSection";
 import { useGetWorkspaceById } from "@/hooks/apis/workspaces/useGetWorkspaceById";
-import { Loader2, TriangleAlertIcon } from "lucide-react";
+import { useCreateChannelModal } from "@/hooks/context/useCreateChannelModal";
+import {
+  HashIcon,
+  Loader2,
+  MessageSquareDashedIcon,
+  SendHorizonalIcon,
+  TriangleAlertIcon,
+} from "lucide-react";
 import { useParams } from "react-router-dom";
 
 export const WorkspacePanel = () => {
   const { workspaceId } = useParams();
   const { isFetching, isSuccess, workspace } = useGetWorkspaceById(workspaceId);
+  const { setOpenCreateChannelModal } = useCreateChannelModal();
 
   if (isFetching) {
     return (
@@ -24,8 +34,39 @@ export const WorkspacePanel = () => {
     );
   }
   return (
-    <div className="flex flex-col h-full bg-theme-medium">
-      <WorkspacePanelHeader workspace={workspace} />
-    </div>
+    <>
+      <div className="flex flex-col h-full bg-theme-medium">
+        <WorkspacePanelHeader workspace={workspace} />
+        <div className="flex flex-col px-2 mt-3 gap-1">
+          <SidebarItem
+            label="threads"
+            icon={MessageSquareDashedIcon}
+            id="threads"
+            variant="active"
+          />
+          <SidebarItem
+            label="Drafts & Sends"
+            icon={SendHorizonalIcon}
+            id="drafts"
+            variant="default"
+          />
+        </div>
+        <WorkspacePanelSection
+          label={"Channels"}
+          onIconClick={() => setOpenCreateChannelModal(true)}
+        >
+          {workspace?.channels.map((channel) => {
+            return (
+              <SidebarItem
+                key={channel._id}
+                icon={HashIcon}
+                label={channel.name}
+                id={channel._id}
+              />
+            );
+          })}
+        </WorkspacePanelSection>
+      </div>
+    </>
   );
 };

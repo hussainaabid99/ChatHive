@@ -1,5 +1,5 @@
 import { UserButton } from "@/components/atoms/UserButton/UserButton";
-import { SidebarButton } from "@/components/molecules/workspace/SidebarButton";
+import { SidebarButton } from "@/components/molecules/SidebarButton/SidebarButton";
 import {
   BellIcon,
   HomeIcon,
