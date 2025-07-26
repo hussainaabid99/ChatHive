@@ -58,11 +58,19 @@ export const WorkspaceInviteModal = ({
             Use code below to invite users to {workspaceName}.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col items-center justify-center bg-gray-200 rounded-md px-4 py-6 my-2">
+        <div className="flex flex-col items-center justify-center bg-gray-200 rounded-md px-4 py-6 mt-2">
           <p className="font-semibold font-mono text-4xl uppercase">
             {joinCode}
           </p>
         </div>
+        <a
+          className="flex justify-center text-blue-500 hover:underline"
+          href={`/workspaces/join/${workspaceId} `}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Go to join page
+        </a>
         <DialogFooter className="mt-4 flex justify-center gap-2">
           <Button
             variant="outline"
