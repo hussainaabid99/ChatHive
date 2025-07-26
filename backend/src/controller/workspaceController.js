@@ -212,3 +212,26 @@ export const resetWorkspaceJoinCodeController = async (req, res) => {
       .json(InternalServerErrorResponse(error));
   }
 };
+
+export const joinWorkspaceController = async (req, res) => {
+  try {
+    const response = await workspaceService.joinWorkspaceService(
+      req.params.workspaceId,
+      req.body.joinCode,
+      req.user
+    );
+
+    return res
+      .status(StatusCodes.OK)
+      .json(SuccessResponse(response, "Workspace joined successfully"));
+  } catch (error) {
+    console.log("Something went wrong in controller layer", error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(CustomErrorResponse(error));
+    }
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(InternalServerErrorResponse(error));
+  }
+};

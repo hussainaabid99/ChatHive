@@ -10,6 +10,7 @@ import {
   updateWorkspaceController,
   addChannelToWorkspaceController,
   resetWorkspaceJoinCodeController,
+  joinWorkspaceController,
 } from "../../controller/workspaceController.js";
 
 const router = express.Router();
@@ -42,5 +43,7 @@ router.put(
   resetWorkspaceJoinCodeController
 );
 router.put("/:workspaceId", isAuthenticated, updateWorkspaceController);
+
+router.put("/:workspaceId/join", isAuthenticated, joinWorkspaceController);
 
 export default router;

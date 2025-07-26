@@ -303,6 +303,37 @@ class WorkspaceService {
       throw error;
     }
   }
+
+  async joinWorkspaceService(workspaceId, joinCode, userId) {
+    try {
+      const workspace = await this.getWorkspaceById(workspaceId);
+      if (!workspace)
+        throw new ClientError({
+          explanation: "Invalid data sent from the client",
+          message: "Workspace not found",
+          statusCode: StatusCodes.NOT_FOUND,
+        });
+
+      if (workspace.joinCode !== joinCode)
+        throw new ClientError({
+          explanation: "Invalid join code provided by the user",
+          message: "Join code is incorrect",
+          statusCode: StatusCodes.BAD_REQUEST,
+        });
+
+      const updatedWorkspace =
+        await this.workspaceRepository.addMemberToWorkspace(
+          workspaceId,
+          userId,
+          "member"
+        );
+
+      return updatedWorkspace;
+    } catch (error) {
+      console.log("Something went wrong in service layer", error);
+      throw error;
+    }
+  }
 }
 
 export default WorkspaceService;
