@@ -306,7 +306,7 @@ class WorkspaceService {
 
   async joinWorkspaceService(workspaceId, joinCode, userId) {
     try {
-      const workspace = await this.getWorkspaceById(workspaceId);
+      const workspace = await this.workspaceRepository.getById(workspaceId);
       if (!workspace)
         throw new ClientError({
           explanation: "Invalid data sent from the client",
@@ -314,12 +314,23 @@ class WorkspaceService {
           statusCode: StatusCodes.NOT_FOUND,
         });
 
+      console.log("workspace", workspace, joinCode);
+
       if (workspace.joinCode !== joinCode)
         throw new ClientError({
           explanation: "Invalid join code provided by the user",
           message: "Join code is incorrect",
           statusCode: StatusCodes.BAD_REQUEST,
         });
+
+      const isMember = await this._isMember(workspace, userId);
+      if (isMember) {
+        throw new ClientError({
+          explanation: "User is already a member of the workspace",
+          message: "User is already a member of the workspace",
+          statusCode: StatusCodes.FORBIDDEN,
+        });
+      }
 
       const updatedWorkspace =
         await this.workspaceRepository.addMemberToWorkspace(
