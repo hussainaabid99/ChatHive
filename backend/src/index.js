@@ -8,6 +8,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import messageHandlers from "./controller/messageSocketController.js";
 import messageSocketHandlers from "./controller/channelSocketController.js";
+import { verifyEmailController } from "./controller/userController.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -21,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/ui", bullServerAdapter.getRouter());
 
 app.use("/api", apiRoutes);
+
+app.get("/verify/:token", verifyEmailController);
 
 io.on("connection", (socket) => {
   messageHandlers(io, socket);

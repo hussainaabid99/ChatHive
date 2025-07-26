@@ -41,3 +41,20 @@ export const SignIn = async (req, res) => {
       .json(InternalServerErrorResponse(error));
   }
 };
+
+export const verifyEmailController = async (req, res) => {
+  try {
+    const response = await userService.verifyTokenService(req.params.token);
+    return res
+      .status(StatusCodes.OK)
+      .json(SuccessResponse(response, "Email verification Successfull"));
+  } catch (error) {
+    console.log("Something went wrong in controller layer", error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(CustomErrorResponse(error));
+    }
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(InternalServerErrorResponse(error));
+  }
+};

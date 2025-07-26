@@ -36,6 +36,16 @@ class UserRepository extends CrudRepository {
       throw error;
     }
   }
+
+  async getByToken(token) {
+    try {
+      const user = await User.findOne({ verificationToken: token });
+      return user;
+    } catch (error) {
+      console.log("Something went wrong in repository layer");
+      throw error;
+    }
+  }
 }
 
 export default UserRepository;
