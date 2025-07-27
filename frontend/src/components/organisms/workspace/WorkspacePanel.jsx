@@ -1,4 +1,5 @@
 import { SidebarItem } from "@/components/atoms/SidebarItem/SidebarItem";
+import { UserItem } from "@/components/atoms/UserItem/UserItem";
 import { WorkspacePanelHeader } from "@/components/molecules/workspace/WorkspacePanelHeader";
 import { WorkspacePanelSection } from "@/components/molecules/workspace/WorkspacePanelSection";
 import { useGetWorkspaceById } from "@/hooks/apis/workspaces/useGetWorkspaceById";
@@ -62,6 +63,18 @@ export const WorkspacePanel = () => {
                 icon={HashIcon}
                 label={channel.name}
                 id={channel._id}
+              />
+            );
+          })}
+        </WorkspacePanelSection>
+        <WorkspacePanelSection label="Direct Messages" onIconClick={() => {}}>
+          {workspace?.members?.map((member) => {
+            return (
+              <UserItem
+                key={member.memberId._id}
+                label={member.memberId.username}
+                id={member.memberId._id}
+                image={member.memberId.avatar}
               />
             );
           })}
