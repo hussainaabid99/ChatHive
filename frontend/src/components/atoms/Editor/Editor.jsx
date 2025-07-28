@@ -2,22 +2,20 @@ import "quill/dist/quill.snow.css";
 
 import Quill from "quill";
 import { useEffect, useState, useRef } from "react";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, SendHorizonal } from "lucide-react";
 import { PiTextAa } from "react-icons/pi";
 
 import { Button } from "@/components/ui/button";
 import { Hint } from "../Hint/Hint";
 
-export const Editor = (
-  {
-    // variant = "create",
-    // onSubmit,
-    // onCancel,
-    // placeholder,
-    // disabled,
-    // defaultValue,
-  }
-) => {
+export const Editor = ({
+  // variant = "create",
+  onSubmit,
+  // onCancel,
+  // placeholder,
+  // disabled,
+  // defaultValue,
+}) => {
   const [isToolbarVisible, setIsToolbarVisible] = useState(false);
 
   const containerRef = useRef(); // reqd to initialize the editor
@@ -103,6 +101,20 @@ export const Editor = (
               onClick={() => {}}
             >
               <ImageIcon className="size-4" />
+            </Button>
+          </Hint>
+          <Hint label="Send Message">
+            <Button
+              size="iconSm"
+              disabled={false}
+              className="ml-auto bg-green-500 hover:bg-green-600 text-white px-6"
+              onClick={() => {
+                const messageContent = quillRef.current.getContents();
+                onSubmit({ body: messageContent });
+                quillRef.current.setContents(defaultValueRef.current);
+              }}
+            >
+              <SendHorizonal className="size-4" />
             </Button>
           </Hint>
         </div>

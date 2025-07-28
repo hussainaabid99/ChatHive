@@ -15,7 +15,7 @@ export const Hint = ({ children, label, side = "top", align = "left" }) => {
           align={align}
           className="bg-black text-white p-2 rounded-lg border border-white/5"
         >
-          <p className="text-sm font-medium">{label}</p>
+          <p className="text-[10px] font-thin">{label}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
