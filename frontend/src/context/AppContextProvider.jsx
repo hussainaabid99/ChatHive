@@ -5,6 +5,7 @@ import { WorkspacePreferencesModalContextProvider } from "./WorkspacePreferences
 import CreateChannelModalContextProvider from "./CreateChannelModalContext";
 import WorkspaceContextProvider from "./WorkspaceContext";
 import SocketContextProvider from "./SocketContext";
+import { ChannelMessagesProvider } from "./ChannelMessages";
 
 export const AppContextProvider = CombineContext(
   AuthContextProvider,
@@ -12,5 +13,6 @@ export const AppContextProvider = CombineContext(
   WorkspacePreferencesModalContextProvider,
   CreateChannelModalContextProvider,
   SocketContextProvider,
-  WorkspaceContextProvider
+  WorkspaceContextProvider,
+  ChannelMessagesProvider
 );
