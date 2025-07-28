@@ -2,19 +2,22 @@ import "quill/dist/quill.snow.css";
 
 import Quill from "quill";
 import { useEffect, useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { PiTextAa } from "react-icons/pi";
-import { Hint } from "../Hint/Hint";
 import { ImageIcon } from "lucide-react";
+import { PiTextAa } from "react-icons/pi";
 
-export const Editor = ({
-  variant = "create",
-  onSubmit,
-  onCancel,
-  placeholder,
-  disabled,
-  defaultValue,
-}) => {
+import { Button } from "@/components/ui/button";
+import { Hint } from "../Hint/Hint";
+
+export const Editor = (
+  {
+    // variant = "create",
+    // onSubmit,
+    // onCancel,
+    // placeholder,
+    // disabled,
+    // defaultValue,
+  }
+) => {
   const [isToolbarVisible, setIsToolbarVisible] = useState(false);
 
   const containerRef = useRef(); // reqd to initialize the editor
@@ -37,7 +40,7 @@ export const Editor = ({
     );
 
     const options = {
-      themn: "snow",
+      theme: "snow",
       modules: {
         toolbar: [
           ["bold", "italic", "underline", "strike"],
@@ -66,6 +69,7 @@ export const Editor = ({
     };
 
     const quill = new Quill(editorContainer, options);
+
     quillRef.current = quill;
     quillRef.current.focus();
 
@@ -75,7 +79,7 @@ export const Editor = ({
   return (
     <div className="flex flex-col">
       <div className="flex flex-col border-slate-300 rounded-md overflow-hidden focus-within:shadow-sm focus-within:border-slate-400 bg-white ">
-        <div className="h-full ql-custom" ref={containerRef} />\
+        <div className="h-full ql-custom" ref={containerRef} />
         <div className="flex px-2 pb-2 z-[5]">
           <Hint
             label={!isToolbarVisible ? "Show toolbar" : "Hide toolbar"}
@@ -103,7 +107,7 @@ export const Editor = ({
           </Hint>
         </div>
       </div>
-      <p className="p-2 text-[10px] text-mutes-foreground flex justify-end">
+      <p className="p-2 text-[10px] text-muted-foreground flex justify-end">
         <strong>Shift + return</strong> &nbsp; to add a new line
       </p>
     </div>

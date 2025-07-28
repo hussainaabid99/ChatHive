@@ -31,14 +31,10 @@ export const Channel = () => {
   }
 
   return (
-    <div>
-      <div className="flex flex-col h-full">
-        <div className="flex-1">
-          <ChannelHeader name={channelDetails?.name} channelId={channelId} />
-          <div className="flex-1" />
-          <ChatInput />
-        </div>
-      </div>
+    <div className="flex flex-col h-full">
+      <ChannelHeader name={channelDetails?.name} channelId={channelId} />
+      <div className="flex-1" />
+      <ChatInput />
     </div>
   );
 };
