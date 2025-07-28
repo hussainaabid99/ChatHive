@@ -54,7 +54,6 @@ export const getWorkspaceByIdController = async (req, res) => {
       req.params.workspaceId,
       req.user
     );
-    console.log("req at ctrl", req);
     return res
       .status(StatusCodes.OK)
       .json(SuccessResponse(workspace, "Workspace fetched successfully"));
@@ -114,7 +113,6 @@ export const getWorkspaceByJoinCodeController = async (req, res) => {
 
 export const addMemberToWorkspaceController = async (req, res) => {
   try {
-    console.log(req.params, req.body);
     const response = await workspaceService.addMemberToWorkspace(
       req.params.workspaceId,
       req.body.memberId,

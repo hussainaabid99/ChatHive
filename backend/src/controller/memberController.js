@@ -9,7 +9,6 @@ import MemberService from "../service/memberService.js";
 const memberService = new MemberService();
 
 export const isMemberPartOfWorkspace = async (req, res) => {
-  console.log(req.params);
   try {
     const response = await memberService.isMemberPartOfWorkspace(
       req.params.workspaceId,

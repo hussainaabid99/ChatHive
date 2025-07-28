@@ -118,8 +118,6 @@ class WorkspaceService {
 
       this.channelRepository = new ChannelRepository();
 
-      console.log("wsC", workspace.channels, typeof workspace.channels);
-
       const response1 = await this.channelRepository.deleteMany({
         _id: { $in: workspace.channels },
       });

@@ -51,6 +51,35 @@ class ChannelService {
       throw error;
     }
   }
+
+  async updateChannelService(channelId, data) {
+    try {
+      const channel = await this.channelRepository.getById(channelId);
+      if (!channel)
+        throw new ClientError({
+          explanation: "Invalid data sent from the client",
+          message: "Channel not found",
+          statusCode: StatusCodes.NOT_FOUND,
+        });
+
+      if (data?.name) {
+        const existing = await this.channelRepository.getChannelByName(
+          data.name
+        );
+        if (existing)
+          throw new ClientError({
+            explanation: "Channel with the same name already exists",
+            message: "Channel with the same name already exists",
+            statusCode: StatusCodes.CONFLICT,
+          });
+      }
+      const response = await this.channelRepository.update(channelId, data);
+      return response;
+    } catch (error) {
+      console.log("Something went wrong in service layer", error);
+      throw error;
+    }
+  }
 }
 
 export default ChannelService;
