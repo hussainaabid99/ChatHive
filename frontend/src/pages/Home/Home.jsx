@@ -1,4 +1,5 @@
 import { UserButton } from "@/components/atoms/UserButton/UserButton";
+import { WorkspaceNavbar } from "@/components/organisms/workspace/WorkspaceNavbar";
 import { useFetchWorkspaces } from "@/hooks/apis/workspaces/useFetchWorkspaces";
 import { useCreateWorkspaceModal } from "@/hooks/context/useCreateWorkspaceModal";
 import { useEffect } from "react";
@@ -25,6 +26,7 @@ export const Home = () => {
 
   return (
     <>
+      <WorkspaceNavbar />
       <h1>Home</h1>
       <UserButton />
     </>

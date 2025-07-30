@@ -7,21 +7,31 @@ import { useChannelMessages } from "@/hooks/context/useChannelMessages";
 import { useSocket } from "@/hooks/context/useSocket";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader2Icon, TriangleAlertIcon } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 export const Channel = () => {
   const { channelId } = useParams();
+
   const queryClient = useQueryClient();
 
-  const { isFetching, isError, channelDetails, error } =
-    useGetChannelById(channelId);
-  const { joinChannel } = useSocket();
-  const { messages, isSuccess } = useGetChannelMessages(channelId);
+  const { isFetching, isError, channelDetails } = useGetChannelById(channelId);
   const { messageList, setMessageList } = useChannelMessages();
 
+  const { joinChannel } = useSocket();
+
+  const { messages, isSuccess } = useGetChannelMessages(channelId);
+
+  const messageContainerListRef = useRef(null);
+
   useEffect(() => {
-    console.log("Channel Id", channelId);
+    if (messageContainerListRef.current) {
+      messageContainerListRef.current.scrollTop =
+        messageContainerListRef.current.scrollHeight;
+    }
+  }, [messageList]);
+
+  useEffect(() => {
     queryClient.invalidateQueries({
       queryKey: [`getPaginatedMessages`],
     });
@@ -29,7 +39,6 @@ export const Channel = () => {
 
   useEffect(() => {
     if (!isFetching && !isError) {
-      console.log(channelId);
       joinChannel(channelId);
     }
   }, [isFetching, isError, joinChannel, channelId]);
@@ -52,6 +61,8 @@ export const Channel = () => {
     );
   }
 
+  console.log("messageList", messageList);
+
   if (isError) {
     return (
       <div className="flex flex-col items-center justify-center h-full w-full text-muted-foreground">
@@ -62,20 +73,27 @@ export const Channel = () => {
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-screen ">
       <ChannelHeader name={channelDetails?.name} channelId={channelId} />
-      {messageList?.reverse()?.map((message) => {
-        return (
-          <Message
-            key={message._id}
-            body={message.body}
-            authorImage={message.senderId?.avatar}
-            authorName={message.senderId?.username}
-            createdAt={message.createdAt}
-          />
-        );
-      })}
-      <div className="flex-1" />
+      <div
+        className="flex-1 overflow-y-auto p-2 space-y-2"
+        ref={messageContainerListRef}
+      >
+        {messageList
+          ?.slice()
+          .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+          .map((message) => {
+            return (
+              <Message
+                key={message._id}
+                body={message.body}
+                authorImage={message.senderId?.avatar}
+                authorName={message.senderId?.username}
+                createdAt={message.createdAt}
+              />
+            );
+          })}
+      </div>
       <ChatInput />
     </div>
   );

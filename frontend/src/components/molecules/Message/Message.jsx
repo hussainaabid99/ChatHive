@@ -10,7 +10,7 @@ export const Message = ({ authorImage, authorName, createdAt, body }) => {
           <Avatar>
             <AvatarImage src={authorImage} className="rounded-md" />
             <AvatarFallback className="rounded-md bg-sky-500 text-white text-sm">
-              {authorName.charAt(0).toUpperCase()}
+              {authorName?.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </button>

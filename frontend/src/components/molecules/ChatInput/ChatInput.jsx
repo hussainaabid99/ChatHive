@@ -22,7 +22,7 @@ export const ChatInput = () => {
   }
 
   return (
-    <div className="px-5 w-full">
+    <div className="py-2 w-full px-2">
       <Editor
         // placeholder="Type a message.."
         onSubmit={handleSubmit}
