@@ -12,6 +12,14 @@ class MessageRepository extends CrudRepository {
       .populate("senderId", "username email avatar");
     return messages;
   }
+
+  async getMessageDetails(messageId) {
+    const message = await Message.findById(messageId).populate(
+      "senderId",
+      "username email avatar"
+    );
+    return message;
+  }
 }
 
 export default MessageRepository;

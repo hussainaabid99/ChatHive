@@ -43,8 +43,11 @@ class MessageService {
   }
 
   async createMessage(message) {
-    const newMesssage = await this.messageRepository.create(message);
-    return newMesssage;
+    const newMessage = await this.messageRepository.create(message);
+    const messageDetails = await this.messageRepository.getMessageDetails(
+      newMessage._id
+    );
+    return newMessage;
   }
 }
 
