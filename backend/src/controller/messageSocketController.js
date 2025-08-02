@@ -6,7 +6,6 @@ import MessageService from "../service/messageService.js";
 
 export default function messageHandlers(io, socket) {
   socket.on(NEW_MESSAGE_EVENT, async function createMessageHandler(data, cb) {
-    console.log(typeof data, data);
     const messageService = new MessageService();
     const { channelId } = data;
     const messageResponse = await messageService.createMessage(data);

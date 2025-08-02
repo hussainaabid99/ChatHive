@@ -6,7 +6,13 @@ import { AppRoutes } from "./Routes";
 import { Modals } from "./components/organisms/Modals/Modals";
 
 function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>

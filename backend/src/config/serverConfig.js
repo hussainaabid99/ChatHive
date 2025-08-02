@@ -14,3 +14,7 @@ export const ENABLE_EMAIL_VERIFICATION =
   process.env.ENABLE_EMAIL_VERIFICATION || false;
 export const APP_NAME = process.env.APP_NAME || "App";
 export const APP_LINK = process.env.APP_LINK || "http://localhost:3000";
+export const CLOUDINARY_URL = process.env.CLOUDINARY_URL;
+export const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
+export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
