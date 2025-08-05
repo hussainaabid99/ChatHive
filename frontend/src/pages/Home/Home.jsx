@@ -2,6 +2,7 @@ import { UserButton } from "@/components/atoms/UserButton/UserButton";
 import { WorkspaceNavbar } from "@/components/organisms/workspace/WorkspaceNavbar";
 import { useFetchWorkspaces } from "@/hooks/apis/workspaces/useFetchWorkspaces";
 import { useCreateWorkspaceModal } from "@/hooks/context/useCreateWorkspaceModal";
+import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

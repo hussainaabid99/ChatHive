@@ -102,7 +102,7 @@ export const Landing = () => {
               </>
             ) : (
               <Link
-                to="/app"
+                to="/home"
                 className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
               >
                 Continue to App

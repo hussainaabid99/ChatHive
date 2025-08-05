@@ -34,7 +34,7 @@ export const Navbar = ({ user }) => {
           </>
         ) : (
           <Link
-            to="/app"
+            to="/home"
             className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2.5 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
           >
             Go to App
