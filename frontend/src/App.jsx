@@ -15,13 +15,15 @@ function App() {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppContextProvider>
-        <AppRoutes />
-        <Modals />
-      </AppContextProvider>
-      <Toaster />
-    </QueryClientProvider>
+    <div className="min-h-screen bg-gradient-to-br from-theme-light/10 to-slate-50">
+      <QueryClientProvider client={queryClient}>
+        <AppContextProvider>
+          <AppRoutes />
+          <Modals />
+        </AppContextProvider>
+        <Toaster />
+      </QueryClientProvider>
+    </div>
   );
 }
 

@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useUpdateChannel } from "@/hooks/apis/channels/useUpdateChannel";
 import { useToast } from "@/hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { Hash, Users, Settings } from "lucide-react";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -50,68 +51,81 @@ export const ChannelHeader = ({ name, channelId }) => {
   }
 
   return (
-    <div className="bg-white border-b h-[50px] flex items-center px-4 overflow-hidden">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            variant="ghost"
-            className="text-lg font-semibold px-2 w-auto overflow-hidden"
-          >
-            <span>#{name}</span>
-            <FaChevronDown className="size-3 ml-2" />
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>#{name}</DialogTitle>
-          </DialogHeader>
-          <Dialog>
-            <div className="px-4 pb-4 flex flex-col gap-y-2">
-              <DialogTrigger>
-                <div className="px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-100">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold">Channel name</p>
-                    <p className="text-sm font-semibold">Edit</p>
+    <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200 h-14 flex items-center px-6 shadow-sm">
+      <div className="flex items-center space-x-4 w-full ">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="ghost"
+              className="text-lg font-semibold px-3 hover:bg-slate-100 rounded-lg  transition-colors"
+            >
+              <Hash className="size-4 mr-2 text-theme-medium" />
+              <span className="text-slate-900">{name}</span>
+              <FaChevronDown className="size-3 ml-2 text-slate-500 " />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center space-0">
+                <Hash className="size-4 mr-1 text-theme-medium" />
+                <span>{name}</span>
+              </DialogTitle>
+            </DialogHeader>
+            <Dialog>
+              <div className="space-y-4">
+                <DialogTrigger asChild>
+                  <div className="p-4 bg-slate rounded-lg border cursor-pointer hover:bg-slate-50 trasnition-colors">
+                    <div className="flex items-center justify-between mb-0.5">
+                      <p className="text-sm font-semibold text-slate-900">
+                        Channel name
+                      </p>
+                      <p className="text-sm font-medium">Edit</p>
+                    </div>
+                    <p className="text-sm text-slate-600">{name}</p>
                   </div>
-                  <p className="text-sm text-muted-foreground flex justify-start items-center">
-                    {name}
-                  </p>
-                </div>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Edit Channel Name</DialogTitle>
-                </DialogHeader>
-                <form className="space-y-4" onSubmit={handleUpdateName}>
-                  <Input
-                    value={rename}
-                    onChange={(e) => setRename(e.target.value)}
-                    required
-                    autoFocus
-                    placeholder="Enter new channel name"
-                    minLength={3}
-                    maxLength={50}
-                    disabled={isPending}
-                  />
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Edit Channel Name</DialogTitle>
+                  </DialogHeader>
+                  <form className="space-y-4" onSubmit={handleUpdateName}>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-slate-700">
+                        Channel Name
+                      </label>
+                      <Input
+                        value={rename}
+                        onChange={(e) => setRename(e.target.value)}
+                        required
+                        autoFocus
+                        placeholder="Enter new channel name"
+                        minLength={3}
+                        maxLength={50}
+                        disabled={isPending}
+                        className="border-slate-300 focus:border-theme-indigo focus:ring-theme-indigo/20"
+                      />
+                    </div>
 
-                  <DialogFooter>
-                    <Button variant="outline" disabled={isPending}>
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="default"
-                      type="submit"
-                      disabled={isPending}
-                    >
-                      Save
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </DialogContent>
-            </div>
-          </Dialog>
-        </DialogContent>
-      </Dialog>
+                    <DialogFooter>
+                      <Button variant="outline" disabled={isPending}>
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="default"
+                        type="submit"
+                        disabled={isPending}
+                        className="bg-theme-indigo hover:bg-theme-medium transition-colors"
+                      >
+                        {isPending ? "Saving..." : "Save"}
+                      </Button>
+                    </DialogFooter>
+                  </form>
+                </DialogContent>
+              </div>
+            </Dialog>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };

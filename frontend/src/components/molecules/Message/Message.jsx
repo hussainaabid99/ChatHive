@@ -11,29 +11,33 @@ export const Message = ({
   imageUrl,
 }) => {
   return (
-    <div className="flex flex-col gap-2 p-1.5 px-5 hover:bg-gray-100/60 group relative">
-      <div className="flex items-center gap-2 ">
-        <button>
-          <Avatar>
-            <AvatarImage src={authorImage} className="rounded-md" />
-            <AvatarFallback className="rounded-md bg-sky-500 text-white text-sm">
-              {authorName?.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-        </button>
-        <div className="flex flex-col w-full overflow-hidden">
-          <div className="text-xs">
-            <button className="font-bold text-primary hover:underline">
-              {authorName}
-            </button>
-            <span>&nbsp;&nbsp;</span>
-            <button className="text-xs text-muted-foreground hover:underline">
-              {createdAt ? formatMessageTime(createdAt) : "Just now"}
-            </button>
-          </div>
-          <MessageRenderer value={body} />
-          {imageUrl && <MessageImageThumbnail url={imageUrl} />}
+    <div className="group flex items-start sapce-x-3 p-3 px-5 hover:bg-slate-100 transition-colors duration-200">
+      <div className="flex-shrink-0 ">
+        <Avatar className="size-10 ring-2 ring-white shadow-sm">
+          <AvatarImage src={authorImage} className="rounded-full" />
+          <AvatarFallback className="rounded-full bg-gradient-to-br from-theme-indigo to-theme-indigo/60 text-white font-semibold text-sm">
+            {authorName?.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+      </div>
+      <div className="flex-1 min-w-0 space-y-1">
+        <div className="flex items-center space-x-2">
+          <span className="font-bold text-slate-900 text-sm hover:underline cursor-pointer ml-1">
+            {authorName}
+          </span>
+          <span className="text-xs text-slate-500 ">
+            {createdAt ? formatMessageTime(createdAt) : "Just now"}
+          </span>
         </div>
+        <div className="prose prose-sm max-w-none">
+          <MessageRenderer value={body} />
+        </div>
+
+        {imageUrl && (
+          <div className="mt-3">
+            <MessageImageThumbnail url={imageUrl} />
+          </div>
+        )}
       </div>
     </div>
   );

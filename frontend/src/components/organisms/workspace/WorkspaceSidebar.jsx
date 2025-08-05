@@ -10,13 +10,17 @@ import { WorkspaceSwitcher } from "./WorkspaceSwitcher";
 
 export const WorkspaceSidebar = () => {
   return (
-    <aside className="w-[70px] h-full bg-theme-dark flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]">
-      <WorkspaceSwitcher />
-      <SidebarButton Icon={HomeIcon} label="Home" />
-      <SidebarButton Icon={MessageSquareIcon} label="DMs" />
-      <SidebarButton Icon={BellIcon} label="Notification" />
-      <SidebarButton Icon={MoreHorizontalIcon} label="More" />
-      <div className="flex flex-col items-center justify-center mt-auto gap-y-1 mb-4">
+    <aside className="w-[70px] h-full bg-gradient-to-b from-theme-dark to-theme-dark/95 flex flex-col items-center pt-4 pb-5 shadow-lg border-r border-white/10 ">
+      <div className="mb-6">
+        <WorkspaceSwitcher />
+      </div>
+      <div className="flex flex-col items-center space-y-2 flex-1">
+        <SidebarButton Icon={HomeIcon} label="Home" />
+        <SidebarButton Icon={MessageSquareIcon} label="DMs" />
+        <SidebarButton Icon={BellIcon} label="Notification" />
+        <SidebarButton Icon={MoreHorizontalIcon} label="More" />
+      </div>
+      <div className="flex flex-col items-center pt-4 w-full">
         <UserButton />
       </div>
     </aside>

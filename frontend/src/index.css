@@ -66,14 +66,17 @@
     @apply bg-background text-foreground;
   }
 }
-.ql-toolbar {
+.ql-toolbar .ql-custom {
   border: none !important;
   background-color: #f8f8f8 !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  padding: 12px 16px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  border-radius: 12px 12px !important;
 }
 
 .ql-toolbar .ql-formats:not(:last-child) {
-  border-right: 1px solid #dcdcdc !important;
-  padding-right: 12px !important;
+  margin-right: 16px !important;
 }
 
 .ql-container {
@@ -82,12 +85,37 @@
   font-family: "Lato", sans-serif !important;
 }
 
+.ql-custom .ql-toolbar .ql-formats:not(:last-child) {
+  border-right: 1px solid #cbd5e1 !important;
+  padding-right: 16px !important;
+}
+
+.ql-custom .ql-toolbar button {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 6px !important;
+  margin: 0 2px !important;
+  transition: all 0.2s ease !important;
+  color: #475569 !important;
+}
+
+.ql-custom .ql-toolbar button:hover {
+  background-color: #e2e8f0 !important;
+  color: #1e293b !important;
+  transform: translateY(-1px) !important;
+}
+.ql-custom .ql-toolbar button.ql-active {
+  background-color: #e5e7eb !important;
+  color: white !important;
+}
+
 .ql-editor {
   font-family: "Lato", sans-serif !important;
   font-size: 14px !important;
   line-height: 22px !important;
-  padding: 8px 12px !important;
-  color: #1d1d1d !important;
+  padding: 16px 20px !important;
+  color: #1e293b !important;
+  background-color: transparent !important;
   font-weight: 400 !important;
 }
 
@@ -96,7 +124,10 @@
 }
 
 .ql-editor a {
-  color: #1264a3 !important;
+  color: #6b4c9a !important;
+  text-decoration: underline !important;
+  text-decoration-color: #6b4c9a !important;
+  text-decoration-thickness: 1px !important;
 }
 
 .ql-renderer {
@@ -110,4 +141,115 @@
   font-weight: 400 !important;
   color: #8d8d8d !important;
   @apply truncate;
+}
+
+@media (max-width: 640px) {
+  .ql-custom .ql-toolbar {
+    padding: 8px 12px !important;
+  }
+
+  .ql-custom .ql-editor {
+    padding: 12px 16px !important;
+    min-height: 100px !important;
+  }
+
+  .ql-custom .ql-toolbar button {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
+
+/* Enhanced button hover effects */
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Better focus states */
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid #6b4c9a;
+  outline-offset: 2px;
+}
+
+.landing-gradient {
+  background: linear-gradient(
+    135deg,
+    #f8fafc 0%,
+    #ffffff 50%,
+    rgba(107, 76, 154, 0.05) 100%
+  );
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced button animations */
+.btn-landing {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-landing:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Professional card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Gradient text animation */
+.gradient-text {
+  background: linear-gradient(135deg, #5c3b58 0%, #6b4c9a 50%, #5e2c51 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Professional loading animation */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: "";
+  animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    content: "";
+  }
+  40% {
+    content: ".";
+  }
+  60% {
+    content: "..";
+  }
+  80%,
+  100% {
+    content: "...";
+  }
 }

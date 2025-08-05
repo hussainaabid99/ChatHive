@@ -37,22 +37,26 @@ export const WorkspaceNavbar = () => {
     );
   }
   return (
-    <nav className="flex items-center justify-center p-1.5 bg-theme-dark h-10">
+    <nav className="flex items-center justify-between p-2  bg-gradient-to-r from-theme-dark to-theme-medium h-10 shadow-lg">
       <div className="flex-1"></div>
       <div>
         <Button
           size="sm"
-          className="bg-accebt/25 hover:bg-accent/15 w-full justify-start h-7 px-2"
+          className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white w-full max-w-md justify-start h-7 px-3 rounded-lg transition-all duration-200"
         >
-          <SearchIcon className="size-5 text-white mr-2" />
-          <span className="text-white text-xs">
+          <SearchIcon className="size-4 text-white/80 mr-2" />
+          <span className="text-white/90 text-xs">
             Search {workspace?.name || "Workspace"}
           </span>
         </Button>
       </div>
-      <div className="ml-auto flex-1 flex items-center justify-end">
-        <Button variant="transparent" size="iconSm">
-          <InfoIcon className="size-5 text-white" />
+      <div className="flex-1 flex items-center justify-end">
+        <Button
+          variant="ghost"
+          size="iconSm"
+          className="text-white/80 hover:bg-white/10 rounded-full transition-all duration-200"
+        >
+          <InfoIcon className="size-4" />
         </Button>
       </div>
     </nav>

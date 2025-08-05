@@ -14,21 +14,36 @@ export const Home = () => {
   useEffect(() => {
     if (isFetching) return;
 
-    console.log("Workspaces downloaded", workspaces);
-
     if (workspaces.length === 0 || !workspaces) {
-      console.log("No workspaces");
       setOpenCreateWorkspaceModal(true);
     } else {
-      navigate(`/workspaces/${workspaces[0]._id}`);
+      navigate(
+        `/workspaces/${workspaces[0]._id}/channels/${workspaces[0].channels[0]}`
+      );
     }
-  }, [workspaces, isFetching, navigate]);
+  }, [workspaces, isFetching, navigate, setOpenCreateWorkspaceModal]);
+
+  if (isFetching) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Loader2 className="w-12 h-12 animate-spin text-theme-indigo mx-auto" />
+          <p className="text-slate-600 font-medium">
+            Loading your workspaces...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <WorkspaceNavbar />
-      <h1>Home</h1>
-      <UserButton />
-    </>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white flex items-center justify-center">
+      <div className="text-center space-y-4">
+        <Loader2 className="w-12 h-12 animate-spin text-theme-indigo mx-auto" />
+        <p className="text-slate-600 font-medium">
+          Redirecting to your workspace...
+        </p>
+      </div>
+    </div>
   );
 };

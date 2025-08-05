@@ -65,16 +65,14 @@ export const ChatInput = () => {
   }
 
   return (
-    <div className="py-2 w-full px-2">
-      <Editor
-        // placeholder="Type a message.."
-        onSubmit={handleSubmit}
-        // onCancel={() => {}}
-        // disabled={false}
-        // defaultValue={""}
-        uploading={uploading}
-        setUploading={setUploading}
-      />
+    <div className="w-full p-1">
+      <div className=" mx-auto">
+        <Editor
+          onSubmit={handleSubmit}
+          uploading={uploading}
+          setUploading={setUploading}
+        />
+      </div>
     </div>
   );
 };

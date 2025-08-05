@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -41,21 +43,58 @@ export const CreateWorkspaceModal = () => {
   return (
     <>
       <Dialog open={openCreateWorkspaceModal} onOpenChange={handleClose}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create a new workspace</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleFormSubmit}>
-            <Input
-              required
-              disabled={isPending}
-              placeholder="Enter the workspace name e.g. MyWorkspace, Dev Workspace etc .."
-              value={workspaceName}
-              onChange={(e) => setWorkspaceName(e.target.value)}
-            />
-            <div className="flex justify-end mt-5">
-              <Button disabled={isPending}>Create Workspace</Button>
+        <DialogContent className="sm:max-w-md bg-white/95 backdrop-blur-sm border border-slate-200/50 shadow-xl">
+          <DialogHeader className="space-y-3">
+            <div className="flex items-center space-x-3">
+              <div>
+                <DialogTitle className="text-xl font-semibold text-slate-900">
+                  Create Workspace
+                </DialogTitle>
+                <DialogDescription className="text-slate-600 text-sm">
+                  Start a new workspace to organize your team and projects
+                </DialogDescription>
+              </div>
             </div>
+          </DialogHeader>
+          <form onSubmit={handleFormSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">
+                Workspace Name
+              </label>
+              <Input
+                required
+                disabled={isPending}
+                placeholder="Enter the workspace name e.g. MyWorkspace, Dev Workspace etc .."
+                value={workspaceName}
+                onChange={(e) => setWorkspaceName(e.target.value)}
+                className="border-slate-300 focus:border-theme-indigo focus:ring-theme-indigo/20"
+              />
+            </div>
+            <DialogFooter className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleClose}
+                disabled={isPending}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="flex-1 bg-theme-indigo hover:bg-theme-medium text-white"
+              >
+                {isPending ? (
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="animate-spin size-4" />
+                    Creating...
+                  </div>
+                ) : (
+                  "Create Workspace"
+                )}
+              </Button>
+            </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>

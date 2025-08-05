@@ -8,10 +8,12 @@ import { ProtectedRoute } from "./components/molecules/ProtectedRoute/ProtectedR
 import { WorkspaceLayout } from "./pages/workspace/Layout";
 import { JoinPage } from "./pages/workspace/JoinPage";
 import { Channel } from "./pages/workspace/Channel/Channel";
+import { Landing } from "./pages/Landing/Landing";
 
 export const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route
         path="/auth/signup"
         element={
