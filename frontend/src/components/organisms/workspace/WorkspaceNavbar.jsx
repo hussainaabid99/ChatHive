@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const WorkspaceNavbar = () => {
   const { workspaceId } = useParams();
+  console.log("workspaceId", workspaceId);
   const navigate = useNavigate();
 
   const { isFetching, workspace, error, isSuccess } =

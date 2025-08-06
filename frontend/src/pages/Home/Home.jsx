@@ -18,9 +18,7 @@ export const Home = () => {
     if (workspaces.length === 0 || !workspaces) {
       setOpenCreateWorkspaceModal(true);
     } else {
-      navigate(
-        `/workspaces/${workspaces[0]._id}/channels/${workspaces[0].channels[0]}`
-      );
+      navigate(`/workspaces/${workspaces[0]._id}/`);
     }
   }, [workspaces, isFetching, navigate, setOpenCreateWorkspaceModal]);
 
@@ -40,6 +38,7 @@ export const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white flex items-center justify-center">
       <div className="text-center space-y-4">
+        <WorkspaceNavbar />
         <Loader2 className="w-12 h-12 animate-spin text-theme-indigo mx-auto" />
         <p className="text-slate-600 font-medium">
           Redirecting to your workspace...

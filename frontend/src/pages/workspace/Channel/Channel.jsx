@@ -32,9 +32,7 @@ export const Channel = () => {
   }, [messageList]);
 
   useEffect(() => {
-    queryClient.invalidateQueries({
-      queryKey: [`getPaginatedMessages`],
-    });
+    queryClient.invalidateQueries("getPaginatedMessages");
   }, [channelId]);
 
   useEffect(() => {

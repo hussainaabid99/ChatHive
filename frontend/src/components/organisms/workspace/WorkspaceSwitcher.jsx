@@ -14,6 +14,7 @@ import { useFetchWorkspaces } from "@/hooks/apis/workspaces/useFetchWorkspaces";
 export const WorkspaceSwitcher = () => {
   const navigate = useNavigate();
   const { workspaceId } = useParams();
+  console.log("workspaceId", workspaceId);
   const { isFetching, workspace } = useGetWorkspaceById(workspaceId);
   const { isFetching: isFetchingWorkspaces, workspaces } = useFetchWorkspaces();
 

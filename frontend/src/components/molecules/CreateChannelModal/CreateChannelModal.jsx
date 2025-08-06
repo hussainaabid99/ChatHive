@@ -13,7 +13,7 @@ import useCurrentWorkspace from "@/hooks/context/useCurrentWorkspace";
 import { useToast } from "@/hooks/use-toast";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { Hash } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
 export const CreateChannelModal = () => {
