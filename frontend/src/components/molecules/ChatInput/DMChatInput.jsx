@@ -1,27 +1,26 @@
-import {
-  getSignatureRequest,
-  uploadImageToCloudinaryRequest,
-} from "@/apis/cloudinary";
 import { useState } from "react";
-import { Editor } from "@/components/atoms/Editor/Editor";
+import { getSignatureRequest } from "@/apis/cloudinary";
 import { useGetCloudinarySignature } from "@/hooks/apis/cloudinary/useGetCloudinarySignature";
 import { useUploadToCloudinary } from "@/hooks/apis/cloudinary/useUploadToCloudinary";
 import { useAuth } from "@/hooks/context/useAuth";
-import useCurrentWorkspace from "@/hooks/context/useCurrentWorkspace";
-import { useSocket } from "@/hooks/context/useSocket";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { useParams } from "react-router-dom";
+import { useDirectMessages } from "@/hooks/context/useDirectMessages";
+import { SendDirectMessage } from "@/hooks/apis/dm/useSendDirtectMessage";
+import { Editor } from "@/components/atoms/Editor/Editor";
+import { useSocket } from "@/hooks/context/useSocket";
 
-export const ChatInput = () => {
+export const DMChatInput = () => {
   const [uploading, setUploading] = useState(false);
-  const { socket, currentChannel } = useSocket();
-  const { currentWorkspace } = useCurrentWorkspace();
+  const { userId } = useParams();
+  const { socket, otherUser } = useSocket();
   const { auth } = useAuth();
   const queryClient = useQueryClient();
-  const { signatureRes, error: signatureError } = useGetCloudinarySignature();
-  const { mutateAsync: uploadImage, data: uploadedData } =
-    useUploadToCloudinary();
   const { toast } = useToast();
+  const { setMessageList } = useDirectMessages();
+  const { sendDMMutation } = SendDirectMessage();
+  const { mutateAsync: uploadImage } = useUploadToCloudinary();
 
   async function handleSubmit({ body, image }) {
     try {
@@ -32,9 +31,6 @@ export const ChatInput = () => {
           queryKey: ["cloudinary-signature"],
           queryFn: () => getSignatureRequest({ token: auth?.token }),
         });
-
-        console.log("signatureRes", signatureRes);
-
         const uploaded = await uploadImage({
           file: image,
           signatureRes,
@@ -42,16 +38,15 @@ export const ChatInput = () => {
         imageUrl = uploaded?.secure_url;
       }
 
-      socket?.emit(
-        "newMessage",
+      socket.emit(
+        "newDM",
         {
-          channelId: currentChannel,
+          receiverId: userId || otherUser,
           body,
           image: imageUrl,
           senderId: auth?.user?.id,
-          workspaceId: currentWorkspace._id,
         },
-        (data) => console.log("Message sent successfully", data)
+        (data) => console.log("DM sent successfully", data)
       );
     } catch (err) {
       toast({
@@ -66,7 +61,7 @@ export const ChatInput = () => {
 
   return (
     <div className="w-full p-1">
-      <div className=" mx-auto">
+      <div className="mx-auto">
         <Editor
           onSubmit={handleSubmit}
           uploading={uploading}

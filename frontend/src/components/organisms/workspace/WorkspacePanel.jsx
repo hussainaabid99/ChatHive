@@ -42,25 +42,12 @@ export const WorkspacePanel = () => {
     <div className="flex flex-col h-full bg-gradient-to-br from-theme-light/30 to-white rounded-lg shadow-xl border border-white/20 backdrop-blur-sm overflow-hidden">
       <WorkspacePanelHeader workspace={workspace} />
       <Separator className="bg-slate-200/20" />
-      <div className="flex flex-col px-2 mt-3 gap-y-2 overflow-y-auto">
-        <SidebarItem
-          label="threads"
-          icon={MessageSquareDashedIcon}
-          id="threads"
-          variant="active"
-        />
-        <SidebarItem
-          label="Drafts & Sends"
-          icon={SendHorizonalIcon}
-          id="drafts"
-          variant="default"
-        />
-      </div>
+      <div className="flex flex-col px-2 mt-3 gap-y-2 overflow-y-auto"></div>
       <WorkspacePanelSection
         label={"Channels"}
         onIconClick={() => setOpenCreateChannelModal(true)}
       >
-        {workspace?.channels.map((channel) => {
+        {workspace?.channels?.map((channel) => {
           return (
             <SidebarItem
               key={channel._id}

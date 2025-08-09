@@ -6,6 +6,7 @@ import {
 } from "../common/responseObject.js";
 import MessageService from "../service/messageService.js";
 import cloudinary from "cloudinary";
+import { workspaceJoinMail } from "../common/mailObject.js";
 
 const messageService = new MessageService();
 
@@ -53,9 +54,58 @@ export const getSignatureController = async (req, res) => {
         "Signed Cloudinary upload params fetched successfully"
       )
     );
+  } catch (error) {
+    console.log("Something went wrong in controller layer", error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(CustomErrorResponse(error));
+    }
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(InternalServerErrorResponse(error));
+  }
+};
+
+export const getDMs = async (req, res) => {
+  try {
+    const userId = req.user;
+    const otherUserId = req.params.userId;
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 20;
+    const DMs = await messageService.getDMsBetweenUsers(
+      userId,
+      otherUserId,
+      page,
+      limit
+    );
     return res
       .status(StatusCodes.OK)
-      .json(SuccessResponse(signedUrl, "Signed URL fetched successfully"));
+      .json(SuccessResponse(DMs, "DMs fetched successfully"));
+  } catch (error) {
+    console.log("Something went wrong in controller layer", error);
+    if (error.statusCode) {
+      return res.status(error.statusCode).json(CustomErrorResponse(error));
+    }
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(InternalServerErrorResponse(error));
+  }
+};
+
+export const sendDM = async (req, res) => {
+  try {
+    const { receiverId, body, image } = req.body;
+    const senderId = req.user;
+    const DM = await messageService.createMessage({
+      senderId,
+      receiverId,
+      body,
+      image,
+      channelId: null,
+      workspace: null,
+    });
+    return res
+      .status(StatusCodes.OK)
+      .json(SuccessResponse(DM, "Message sent successfully"));
   } catch (error) {
     console.log("Something went wrong in controller layer", error);
     if (error.statusCode) {

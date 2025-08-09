@@ -40,7 +40,7 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-white/95 backdrop-blur-sm border border-slate-200/50 shadow-xl">
-        <DropdownMenuItem className="cursor-pointer p-3 hover:bg-slate-50 transition-colors">
+        <DropdownMenuItem className="cursor-pointer p-3 hover:bg-slate-200 transition-colors">
           <div className="flex items-center space-x-3">
             <Avatar className="size-8">
               <AvatarImage src={auth?.user?.avatar} />
@@ -59,17 +59,17 @@ export const UserButton = () => {
           </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer p-3 hover:bg-slate-50 transition-colors">
+        <DropdownMenuItem className="cursor-pointer p-3 hover:bg-slate-200 transition-colors">
           <User className="mr-3 size-4 text-slate-600" />
           <span>Profile</span>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer p-3 hover:bg-slate-50 transition-colors">
+        <DropdownMenuItem className="cursor-pointer p-3 hover:bg-slate-200 transition-colors">
           <Settings className="mr-3 size-4 text-slate-600" />
           <span>Settings</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer p-3 hover:bg-slate-50 transition-colors"
+          className="cursor-pointer p-3 hover:bg-slate-200 transition-colors"
           onClick={openWorkspaceCreateModal}
         >
           <PlusCircle className="mr-3 size-4 text-slate-600" />
@@ -77,7 +77,7 @@ export const UserButton = () => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer p-3 hover:bg-red-50 transition-colors"
+          className="cursor-pointer p-3 hover:bg-slate-200 transition-colors"
           onClick={handleLogout}
         >
           <LogOutIcon className="mr-3 size-4 text-red-600" />

@@ -30,7 +30,7 @@ export const WorkspaceSwitcher = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 bg-white/95 backdrop-blur-sm border-slate-200/50 shadow-xl">
-        <DropdownMenuItem className="cursor-pointer p-3 hover:bg-slate-50 transition-colors">
+        <DropdownMenuItem className="cursor-pointer p-3  transition-colors hover:!bg-slate-200">
           <div className="flex items-center space-x-3">
             <div className="size-8 bg-gradient-to-br from-theme-indigo to-theme-medium rounded-lg flex items-center justify-center text-white font-bold text-sm">
               {workspace?.name?.charAt(0).toUpperCase() || "U"}
@@ -53,7 +53,7 @@ export const WorkspaceSwitcher = () => {
             if (workspace._id === workspaceId) return null;
             return (
               <DropdownMenuItem
-                className="cursor-pointer p-3 hover:bg-gray-50 transition-colors"
+                className="cursor-pointer p-3 hover:bg-slate-200 transition-colors"
                 key={workspace._id}
                 onClick={() => navigate(`/workspaces/${workspace._id}`)}
               >

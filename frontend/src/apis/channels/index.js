@@ -37,18 +37,18 @@ export const updateChannelNameRequest = async ({ channelId, name, token }) => {
 
 export const getPaginatedMessageRequest = async ({
   channelId,
-  page,
   limit,
+  offset,
   token,
 }) => {
   try {
     const response = await axios.get(`/messages/${channelId}`, {
+      params: {
+        limit: limit || 20,
+        offset: offset || 0,
+      },
       headers: {
         "x-access-token": token,
-      },
-      params: {
-        page,
-        limit,
       },
     });
     return response?.data?.data;

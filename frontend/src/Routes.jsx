@@ -9,6 +9,7 @@ import { WorkspaceLayout } from "./pages/workspace/Layout";
 import { JoinPage } from "./pages/workspace/JoinPage";
 import { Channel } from "./pages/workspace/Channel/Channel";
 import { Landing } from "./pages/Landing/Landing";
+import { DM } from "./pages/workspace/DM/DM";
 
 export const AppRoutes = () => {
   return (
@@ -52,6 +53,16 @@ export const AppRoutes = () => {
           <ProtectedRoute>
             <WorkspaceLayout>
               <Channel />
+            </WorkspaceLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/workspaces/:workspaceId/dms/:userId"
+        element={
+          <ProtectedRoute>
+            <WorkspaceLayout>
+              <DM />
             </WorkspaceLayout>
           </ProtectedRoute>
         }

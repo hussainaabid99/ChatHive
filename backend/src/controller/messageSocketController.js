@@ -10,6 +10,7 @@ export default function messageHandlers(io, socket) {
     const { channelId } = data;
     const messageResponse = await messageService.createMessage(data);
     await messageResponse.populate("senderId", "username avatar");
+    console.log("messageResponse", messageResponse);
     io.to(channelId).emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse);
     cb({
       success: true,

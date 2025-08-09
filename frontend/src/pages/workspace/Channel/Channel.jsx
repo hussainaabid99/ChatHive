@@ -1,3 +1,7 @@
+import { Loader2Icon, TriangleAlertIcon } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
+
 import { ChannelHeader } from "@/components/molecules/Channel/ChannelHeader";
 import { ChatInput } from "@/components/molecules/ChatInput/ChatInput";
 import { Message } from "@/components/molecules/Message/Message";
@@ -5,21 +9,13 @@ import { useGetChannelById } from "@/hooks/apis/channels/useGetChannelById";
 import { useGetChannelMessages } from "@/hooks/apis/channels/useGetChannelMessages";
 import { useChannelMessages } from "@/hooks/context/useChannelMessages";
 import { useSocket } from "@/hooks/context/useSocket";
-import { useQueryClient } from "@tanstack/react-query";
-import { Loader2Icon, TriangleAlertIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
 
 export const Channel = () => {
   const { channelId } = useParams();
 
-  const queryClient = useQueryClient();
-
   const { isFetching, isError, channelDetails } = useGetChannelById(channelId);
   const { messageList, setMessageList } = useChannelMessages();
-
   const { joinChannel } = useSocket();
-
   const { messages, isSuccess } = useGetChannelMessages(channelId);
 
   const messageContainerListRef = useRef(null);
@@ -31,29 +27,25 @@ export const Channel = () => {
     }
   }, [messageList]);
 
+  // Clear on channel change to prevent stale flash
   useEffect(() => {
-    queryClient.invalidateQueries("getPaginatedMessages");
-  }, [channelId]);
+    setMessageList([]);
+  }, [channelId, setMessageList]);
+
+  // Join as soon as channelId is known (don’t wait for details fetch)
+  useEffect(() => {
+    if (channelId) joinChannel(channelId);
+  }, [channelId, joinChannel]);
 
   useEffect(() => {
-    if (!isFetching && !isError) {
-      joinChannel(channelId);
+    if (isSuccess && Array.isArray(messages)) {
+      setMessageList([...messages].reverse());
     }
-  }, [isFetching, isError, joinChannel, channelId]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("Channel Messages fetched");
-      setMessageList(messages.reverse());
-    }
-  }, [messages, setMessageList, isSuccess, channelId]);
+  }, [messages, isSuccess, setMessageList, channelId]);
 
   if (isFetching) {
     return (
-      <div
-        className="flex items-center justify-center h-full w-full bg-gradient-to-br from-slate-100 to-white
-      "
-      >
+      <div className="flex items-center justify-center h-full w-full bg-gradient-to-br from-slate-100 to-white">
         <Loader2Icon className="animate-spin text-theme-indigo size-10" />
       </div>
     );
@@ -100,7 +92,7 @@ export const Channel = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="1.5"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8L3 21l1.8-4A7.96 7.96 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8L3 21l1.8-4A7.96 7.96 0 013 12c0-4.418 4.03-8 9-8z"
                 />
               </svg>
             </div>
@@ -127,7 +119,7 @@ export const Channel = () => {
         )}
       </div>
       <div className="border-t border-slate-200 bg-white/80 backdrop-blur-sm">
-        <ChatInput />
+        <ChatInput channelId={channelId} />
       </div>
     </div>
   );

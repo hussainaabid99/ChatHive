@@ -1,9 +1,11 @@
 import { fetchWorkspaceRequest } from "@/apis/workspaces";
 import { useAuth } from "@/hooks/context/useAuth";
+import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 
 export const useFetchWorkspaces = () => {
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
+  const { toast } = useToast();
 
   const {
     isFetching,

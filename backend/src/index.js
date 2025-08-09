@@ -9,6 +9,7 @@ import { Server } from "socket.io";
 import messageHandlers from "./controller/messageSocketController.js";
 import messageSocketHandlers from "./controller/channelSocketController.js";
 import { verifyEmailController } from "./controller/userController.js";
+import dmSocketHanlders from "./controller/dmSocketController.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -32,6 +33,7 @@ app.get("/verify/:token", verifyEmailController);
 io.on("connection", (socket) => {
   messageHandlers(io, socket);
   messageSocketHandlers(io, socket);
+  dmSocketHanlders(io, socket);
 });
 
 httpServer.listen(PORT, () => {

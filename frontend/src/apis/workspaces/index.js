@@ -1,4 +1,4 @@
-import axios from "@/config/axiosConfig";
+import axios from "../../config/axiosConfig";
 
 export const createWorkspaceRequest = async ({ name, description, token }) => {
   try {
@@ -14,8 +14,8 @@ export const createWorkspaceRequest = async ({ name, description, token }) => {
 
     return response?.data?.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log("Error in creating workspace request", error);
+    throw error;
   }
 };
 
@@ -29,8 +29,8 @@ export const fetchWorkspaceRequest = async ({ token }) => {
     console.log("Response in fetch workspace request", response);
     return response?.data?.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log("Error in fetch workspace request", error);
+    throw error;
   }
 };
 
@@ -44,8 +44,8 @@ export const fetchWorkspaceDetailRequest = async ({ workspaceId, token }) => {
 
     return response?.data?.data;
   } catch (error) {
-    console.error(error);
-    throw error.response;
+    console.log("Error in fetch workspace detail request", error);
+    throw error;
   }
 };
 
@@ -59,8 +59,8 @@ export const deleteWorkspaceRequest = async ({ workspaceId, token }) => {
 
     return response?.data?.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log("Error in delete workspace request", error);
+    throw error;
   }
 };
 
@@ -78,8 +78,8 @@ export const updateWorkspaceRequest = async ({ name, workspaceId, token }) => {
 
     return response?.data?.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log("Error in update workspace request", error);
+    throw error;
   }
 };
 
@@ -102,7 +102,7 @@ export const addChannelToWorkspaceRequest = async ({
     return response?.data?.data;
   } catch (error) {
     console.error(error);
-    throw error.response.data;
+    throw error;
   }
 };
 
@@ -120,8 +120,8 @@ export const resetWorkspaceJoinCodeRequest = async ({ workspaceId, token }) => {
 
     return response?.data?.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log("Error in reset workspace join code request", error);
+    throw error;
   }
 };
 
@@ -144,7 +144,7 @@ export const joinWorkspaceRequest = async ({
     );
     return response?.data?.data;
   } catch (error) {
-    console.error(error);
-    throw error.response.data;
+    console.log("Error in join workspace request", error);
+    throw error;
   }
 };

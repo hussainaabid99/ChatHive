@@ -18,10 +18,15 @@ const messageSchema = new Schema(
       ref: "User",
       required: [true, "SenderId is required"],
     },
+    receiverId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
     workspaceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Workspace",
-      required: [true, "WorkspaceId is required"],
+      default: null,
     },
   },
   { timestamps: true }

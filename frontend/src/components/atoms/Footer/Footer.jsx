@@ -8,14 +8,14 @@ export const Footer = () => {
           <div className="w-8 h-8 bg-gradient-to-br from-theme-indigo to-theme-medium rounded-lg flex items-center justify-center">
             <MessageSquare className="w-5 h-5 text-white" />
           </div>
-          <span className="text-xl font-bold text-slate-900">ChatApp</span>
+          <span className="text-xl font-bold text-slate-900">ChatHive</span>
         </div>
         <p className="text-slate-600 mb-4">
           Modern team communication platform built with React, Node.js, and
           Socket.io
         </p>
         <p className="text-sm text-slate-500">
-          © {new Date().getFullYear()} ChatApp. Built for portfolio showcase.
+          © {new Date().getFullYear()} ChatHive. Built for portfolio showcase.
         </p>
       </div>
     </footer>

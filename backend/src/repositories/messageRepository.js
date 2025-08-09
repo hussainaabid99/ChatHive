@@ -20,6 +20,23 @@ class MessageRepository extends CrudRepository {
     );
     return message;
   }
+
+  async getDMsBetweenUsers(user1, user2, page = 1, limit = 20) {
+    const filter = {
+      $or: [
+        {
+          senderId: user1,
+          receiverId: user2,
+        },
+        {
+          senderId: user2,
+          receiverId: user1,
+        },
+      ],
+    };
+    const dms = await this.getPaginatedMessage(filter, page, limit);
+    return dms;
+  }
 }
 
 export default MessageRepository;

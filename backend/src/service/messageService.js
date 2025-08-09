@@ -43,11 +43,31 @@ class MessageService {
   }
 
   async createMessage(message) {
-    const newMessage = await this.messageRepository.create(message);
-    const messageDetails = await this.messageRepository.getMessageDetails(
-      newMessage._id
-    );
-    return newMessage;
+    try {
+      const newMessage = await this.messageRepository.create(message);
+      const messageDetails = await this.messageRepository.getMessageDetails(
+        newMessage._id
+      );
+      return newMessage;
+    } catch (error) {
+      console.log("Something went wrong in Service layer", error);
+      throw error;
+    }
+  }
+
+  async getDMsBetweenUsers(user1, user2, page, limit) {
+    try {
+      const DMs = await this.messageRepository.getDMsBetweenUsers(
+        user1,
+        user2,
+        page,
+        limit
+      );
+      return DMs;
+    } catch (error) {
+      console.log("Something went wrong in Service layer", error);
+      throw error;
+    }
   }
 }
 
