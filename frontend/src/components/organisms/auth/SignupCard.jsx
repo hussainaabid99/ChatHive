@@ -8,7 +8,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Lock, LucideLoader2, Mail, TriangleAlert, User } from "lucide-react";
+import {
+  Lock,
+  LucideLoader2,
+  Mail,
+  TriangleAlert,
+  User,
+  CheckCircle,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const SignupCard = ({

@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useCreateWorkspace } from "@/hooks/apis/workspaces/useCreateWorkspace";
 import { useCreateWorkspaceModal } from "@/hooks/context/useCreateWorkspaceModal";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
